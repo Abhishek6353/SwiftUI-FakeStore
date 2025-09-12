@@ -1,4 +1,4 @@
-# SwiftUI Product Store 🛍️
+# SwiftUI Fake Store 🛍️
 
 A demo iOS app built with **SwiftUI** to showcase skills in **API integration**, **modern UI development**, and **state management**.  
 The app fetches product data from a REST API and displays it in a clean, responsive SwiftUI interface.
