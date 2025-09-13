@@ -56,6 +56,11 @@ struct ForgotPasswordView: View {
                     Text("Reset link sent! Check your email.")
                         .foregroundColor(.green)
                         .font(.footnote)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                dismiss()
+                            }
+                        }
                 }
                 Button(action: {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
