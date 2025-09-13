@@ -14,8 +14,20 @@ class SignupViewModel: ObservableObject {
     
     func signUp(name: String, email: String, password: String, confirmPassword: String) {
         errorMessage = nil
-        guard !name.isEmpty, !email.isEmpty, !password.isEmpty, !confirmPassword.isEmpty else {
-            errorMessage = "All fields are required."
+        guard !email.isEmpty else {
+            errorMessage = "Email is required."
+            return
+        }
+        guard InputValidator.isValidEmail(email) else {
+            errorMessage = "Please enter a valid email address."
+            return
+        }
+        guard !password.isEmpty else {
+            errorMessage = "Password is required."
+            return
+        }
+        guard InputValidator.isValidPassword(password) else {
+            errorMessage = "Password must be at least 8 characters, include uppercase, lowercase, digit, and special character."
             return
         }
         guard password == confirmPassword else {

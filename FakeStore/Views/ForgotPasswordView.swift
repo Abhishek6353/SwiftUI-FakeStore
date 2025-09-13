@@ -11,7 +11,7 @@ struct ForgotPasswordView: View {
     @ObservedObject var authManager: AuthManager
     @State private var email: String = ""
     @StateObject private var viewModel: ForgotPasswordViewModel
-    @State private var showLogin: Bool = false
+    @Environment(\.dismiss) private var dismiss
 
     init(authManager: AuthManager) {
         self.authManager = authManager
@@ -50,6 +50,7 @@ struct ForgotPasswordView: View {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.footnote)
+                        .lineLimit(2)
                 }
                 if viewModel.isSuccess {
                     Text("Reset link sent! Check your email.")
@@ -57,6 +58,7 @@ struct ForgotPasswordView: View {
                         .font(.footnote)
                 }
                 Button(action: {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     viewModel.resetPassword(email: email)
                 }) {
                     Text("Send Reset Link")
@@ -73,7 +75,7 @@ struct ForgotPasswordView: View {
                     Text("Remember your password?")
                         .font(.footnote)
                     Button(action: {
-                        showLogin = true
+                        dismiss()
                     }) {
                         Text("Login")
                             .font(.footnote)
@@ -85,9 +87,6 @@ struct ForgotPasswordView: View {
             }
             .padding(.horizontal, 24)
             .background(Color(.systemBackground))
-            .navigationDestination(isPresented: $showLogin) {
-                LoginView(authManager: authManager)
-            }
         }
     }
 }

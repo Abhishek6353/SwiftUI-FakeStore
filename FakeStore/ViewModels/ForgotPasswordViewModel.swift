@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 
+
 class ForgotPasswordViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -23,6 +24,10 @@ class ForgotPasswordViewModel: ObservableObject {
         isSuccess = false
         guard !email.isEmpty else {
             errorMessage = "Email is required."
+            return
+        }
+        guard InputValidator.isValidEmail(email) else {
+            errorMessage = "Please enter a valid email address."
             return
         }
         isLoading = true

@@ -71,8 +71,10 @@ struct LoginView: View {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.footnote)
+                        .lineLimit(2)
                 }
                 Button(action: {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     viewModel.login(email: email, password: password)
                 }) {
                     Text("Login")
