@@ -13,6 +13,13 @@ struct LoginView: View {
     @State private var isSecure: Bool = true
     @State private var showSignup: Bool = false
     @State private var showForgotPassword: Bool = false
+    @ObservedObject var authManager: AuthManager
+    @StateObject private var viewModel: LoginViewModel
+    
+    init(authManager: AuthManager) {
+        self.authManager = authManager
+        _viewModel = StateObject(wrappedValue: LoginViewModel(authManager: authManager))
+    }
     
     var body: some View {
         NavigationStack {
@@ -57,8 +64,16 @@ struct LoginView: View {
                         }
                     }
                 }
+                if viewModel.isLoading {
+                    ProgressView()
+                }
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.footnote)
+                }
                 Button(action: {
-                    // Handle login action
+                    viewModel.login(email: email, password: password)
                 }) {
                     Text("Login")
                         .font(.headline)
@@ -94,15 +109,15 @@ struct LoginView: View {
             .padding(.horizontal, 24)
             .background(Color(.systemBackground))
             .navigationDestination(isPresented: $showSignup) {
-                SignupView()
+                SignupView(authManager: authManager)
             }
             .navigationDestination(isPresented: $showForgotPassword) {
-                ForgotPasswordView()
+                ForgotPasswordView(authManager: authManager)
             }
         }
     }
 }
 
 #Preview {
-    LoginView()
+    LoginView(authManager: AuthManager())
 }

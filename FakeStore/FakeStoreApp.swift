@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
-import FirebaseCore
 
 @main
 struct FakeStoreApp: App {
-    
-    init() {
-        FirebaseApp.configure()
-    }
-    
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var authManager = AuthManager()
+
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if authManager.isLoggedIn {
+                HomeView(authManager: authManager)
+            } else {
+                LoginView(authManager: authManager)
+            }
         }
     }
 }

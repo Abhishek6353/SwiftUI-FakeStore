@@ -4,13 +4,14 @@
 //
 //  Created by Apple on 12/07/25.
 //
-    
+
 import SwiftUI
 
 struct HomeView: View {
-
+    @ObservedObject var authManager: AuthManager
     @StateObject private var productViewModel = ProductListViewModel()
-
+    @State private var showLogoutAlert = false
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -27,8 +28,24 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("Products")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showLogoutAlert = true
+                    }) {
+                        Text("Logout")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
             .onAppear {
                 productViewModel.fetchProducts()
+            }
+            .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
+                Button("Logout", role: .destructive) {
+                    authManager.logout()
+                }
+                Button("Cancel", role: .cancel) {}
             }
         }
     }

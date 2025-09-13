@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct SignupView: View {
+    @ObservedObject var authManager: AuthManager
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var isSecure: Bool = true
     @State private var isConfirmSecure: Bool = true
+    @StateObject private var viewModel: SignupViewModel
+    
+    init(authManager: AuthManager) {
+        self.authManager = authManager
+        _viewModel = StateObject(wrappedValue: SignupViewModel(authManager: authManager))
+    }
     
     var body: some View {
         VStack(spacing: 32) {
@@ -80,8 +87,21 @@ struct SignupView: View {
                     }
                 }
             }
+            if viewModel.isLoading {
+                ProgressView()
+            }
+            if let error = viewModel.errorMessage {
+                Text(error)
+                    .foregroundColor(.red)
+                    .font(.footnote)
+            }
+            if viewModel.isSignedUp {
+                Text("Account created successfully!")
+                    .foregroundColor(.green)
+                    .font(.footnote)
+            }
             Button(action: {
-                // Handle sign up action
+                viewModel.signUp(name: name, email: email, password: password, confirmPassword: confirmPassword)
             }) {
                 Text("Sign Up")
                     .font(.headline)
@@ -113,5 +133,5 @@ struct SignupView: View {
 }
 
 #Preview {
-    SignupView()
+    SignupView(authManager: AuthManager())
 }
