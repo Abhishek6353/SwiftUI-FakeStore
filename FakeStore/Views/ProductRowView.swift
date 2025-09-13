@@ -6,35 +6,20 @@
 //
 
 import SwiftUI
-
-import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProductRowView: View {
     let product: Product
 
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
-            AsyncImage(url: URL(string: product.image)) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .frame(width: 100, height: 100)
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100)
-                        .clipped()
-                        .cornerRadius(8)
-                case .failure:
-                    Image(systemName: "photo")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.gray)
-                @unknown default:
-                    EmptyView()
-                }
-            }
+            WebImage(url: URL(string: product.image))
+                .resizable()
+                .indicator(.activity)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100, height: 100)
+                .clipped()
+                .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(product.title)

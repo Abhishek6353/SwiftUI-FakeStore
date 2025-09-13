@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProductDetailView: View {
     let product: Product
@@ -15,25 +16,12 @@ struct ProductDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 
                 // Image
-                AsyncImage(url: URL(string: product.image)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(height: 300)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.gray.opacity(0.1))
-                    case .failure:
-                        Image(systemName: "photo")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
+                WebImage(url: URL(string: product.image))
+                    .resizable()
+                    .indicator(.activity)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.gray.opacity(0.1))
                 
                 // Title
                 Text(product.title)

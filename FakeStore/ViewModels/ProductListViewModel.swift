@@ -45,7 +45,6 @@ class ProductListViewModel: ObservableObject {
         }
         
         task.resume()
-        
     }
 }
 
