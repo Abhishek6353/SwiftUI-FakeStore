@@ -2,8 +2,6 @@
 
 A modern e-commerce demo app built with SwiftUI, Firebase Authentication, Firestore, and SDWebImageSwiftUI for image caching. This app demonstrates best practices for MVVM architecture, and robust user experience.
 
-## Screenshots
-
 ## 📸 Screenshots
 
 <p float="left">
