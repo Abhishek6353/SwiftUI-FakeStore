@@ -41,6 +41,7 @@ class SignupViewModel: ObservableObject {
                 if let error = error {
                     self?.errorMessage = error
                 } else {
+                    self?.authManager.logout() // Log out after signup
                     self?.isSignedUp = true
                 }
             }

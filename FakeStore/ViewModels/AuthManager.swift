@@ -52,7 +52,7 @@ class AuthManager: ObservableObject {
                     if let err = err {
                         completion(err.localizedDescription)
                     } else {
-                        self?.isLoggedIn = true
+//                        self?.isLoggedIn = true
                         completion(nil)
                     }
                 }
