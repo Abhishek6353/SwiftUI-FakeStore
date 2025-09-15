@@ -4,13 +4,19 @@ A modern e-commerce demo app built with SwiftUI, Firebase Authentication, Firest
 
 ## Screenshots
 
+## 📸 Screenshots
+
 <p float="left">
-  <img src="Screenshots/1_login.png" width="250" />
-  <img src="Screenshots/2_signup.png" width="250" />
-  <img src="Screenshots/3_ForgotPassword" width="250" />
-   <img src="Screenshots/4_Home" width="250" />
-   <img src="Screenshots/5_ProfuctDetails" width="250" />
+  <img src="Screenshots/1_Login.PNG" width="220" />
+  <img src="Screenshots/2_Signup.PNG" width="220" />
+  <img src="Screenshots/3_ForgotPassword.PNG" width="220" />
 </p>
+
+<p float="left">
+  <img src="Screenshots/4_Home.PNG" width="220" />
+  <img src="Screenshots/5_ProfuctDetails.PNG" width="220" />
+</p>
+
 
 
 ## Features
